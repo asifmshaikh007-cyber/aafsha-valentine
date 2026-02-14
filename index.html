@@ -8,35 +8,34 @@
 
 <style>
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 margin:0;
 font-family:Poppins;
+overflow:hidden;
 background:linear-gradient(135deg,#f3e8ff,#e9d5ff);
 color:#4c1d95;
-overflow-x:hidden;
 }
 
-/* Sections */
-section{
+/* SLIDE CONTAINER */
+.slider{
+display:flex;
+width:400%;
+height:100vh;
+transition:transform 0.8s ease-in-out;
+}
+
+.slide{
+width:100vw;
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:20px;
 text-align:center;
+padding:20px;
 }
 
-/* Proposal */
-h1{
-font-size:32px;
-max-width:400px;
-}
-
+/* Buttons */
 button{
 padding:14px 30px;
 border:none;
@@ -73,29 +72,21 @@ backdrop-filter:blur(10px);
 padding:30px;
 border-radius:20px;
 max-width:500px;
+line-height:1.8;
 font-size:18px;
-line-height:1.7;
-opacity:0;
-transform:translateY(40px);
-transition:1s;
-}
-
-.show{
-opacity:1;
-transform:translateY(0);
 }
 
 /* Final */
 .love-text{
 font-family:Playfair Display;
-font-size:50px;
+font-size:55px;
 color:#6b21a8;
 animation:glow 2s infinite alternate;
 }
 
 @keyframes glow{
-from{ text-shadow:0 0 10px #c084fc;}
-to{ text-shadow:0 0 30px #a855f7;}
+from{text-shadow:0 0 10px #c084fc;}
+to{text-shadow:0 0 30px #a855f7;}
 }
 
 img{
@@ -120,63 +111,74 @@ animation:float 6s linear infinite;
 
 <body>
 
-<audio id="endSong" src="perfect.mp3"></audio>
+<audio id="perfectSong" src="perfect.mp3"></audio>
 
-<!-- SECTION 1 -->
-<section id="sec1">
+<div class="slider" id="slider">
+
+<!-- SLIDE 1 -->
+<div class="slide">
 
 <h1>Aafsha…<br>Will you be my forever Valentine? 🤍</h1>
 
 <button id="yesBtn">Yes</button>
 <button id="noBtn">No</button>
 
-</section>
+</div>
 
-<!-- SECTION 2 -->
-<section id="sec2">
+<!-- SLIDE 2 -->
+<div class="slide">
 
 <video id="video">
 <source src="kbc-7crore.mp4">
 </video>
 
-</section>
+</div>
 
-<!-- SECTION 3 -->
-<section id="sec3">
+<!-- SLIDE 3 -->
+<div class="slide">
 
-<div class="promise-box" id="promiseBox">
+<div class="promise-box">
 
 Aafsha, from this moment and for every moment that follows,  
 I promise to stand beside you in every phase of life —  
-to celebrate your happiness, to protect your peace,  
-to support your dreams as if they were my own,  
-and to love you not just in the easy days but in the challenging ones too.  
+to protect your peace, support your dreams,  
+celebrate your wins, and hold your hand through every challenge.  
 
-I don’t promise perfection…  
-but I promise effort, loyalty, growth, and forever.  
+I may not promise perfection,  
+but I promise effort, loyalty, growth, and a love that deepens with time.  
 
-Are you okay with being loved this deeply for the rest of your life? 🤍
+Are you okay with being loved this deeply… forever? 🤍
 
 <br><br>
 
-<button onclick="goFinal()">I’m okay with forever ❤️</button>
+<button onclick="nextSlide()">I’m okay with forever ❤️</button>
 
 </div>
 
-</section>
+</div>
 
-<!-- SECTION 4 -->
-<section id="sec4">
+<!-- SLIDE 4 -->
+<div class="slide">
 
 <div class="love-text">I LOVE YOU AAFSHA 🤍</div>
 
 <img src="minion.gif">
 
-</section>
+</div>
+
+</div>
 
 <script>
 
-// Floating hearts
+let slider=document.getElementById("slider");
+let current=0;
+
+function nextSlide(){
+current++;
+slider.style.transform="translateX(-"+(current*100)+"vw)";
+}
+
+/* Floating hearts */
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
@@ -186,44 +188,55 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
 },700);
 
-// NO run
+/* Funny YES grow */
+let yes=document.getElementById("yesBtn");
 let no=document.getElementById("noBtn");
+
+let texts=[
+"Yes",
+"Are you sure? 😌",
+"Come on yesss 😂",
+"You know it's YES 😏",
+"Just click YES already ❤️",
+"Of course YES 😍"
+];
+
+let index=0;
+let size=18;
+
 no.onclick=function(){
+
 no.style.left=Math.random()*300+"px";
 no.style.top=Math.random()*400+"px";
-let yes=document.getElementById("yesBtn");
-yes.style.fontSize=(parseInt(window.getComputedStyle(yes).fontSize)+5)+"px";
+
+size+=6;
+yes.style.fontSize=size+"px";
+
+if(index<texts.length-1){
+index++;
+yes.innerText=texts[index];
+}
+
 };
 
-// YES click
-document.getElementById("yesBtn").onclick=function(){
+/* YES Click */
+yes.onclick=function(){
 
-document.getElementById("sec2").scrollIntoView();
+nextSlide();
 
 let video=document.getElementById("video");
 video.play();
 
 video.onended=function(){
 
-// start perfect immediately
-document.getElementById("endSong").play();
+// play perfect immediately
+document.getElementById("perfectSong").play();
 
-// scroll to promise
-document.getElementById("sec3").scrollIntoView();
-
-// show animation
-setTimeout(()=>{
-document.getElementById("promiseBox").classList.add("show");
-},300);
+nextSlide();
 
 }
 
 };
-
-// final page
-function goFinal(){
-document.getElementById("sec4").scrollIntoView();
-}
 
 </script>
 
