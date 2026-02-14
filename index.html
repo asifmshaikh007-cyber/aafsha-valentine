@@ -61,6 +61,7 @@
             z-index: 10;
             max-width: 500px;
             width: 90%;
+            transition: all 0.3s ease;
         }
 
         /* TYPOGRAPHY */
@@ -82,11 +83,12 @@
         /* BUTTONS */
         .btn-container {
             position: relative;
-            height: 120px;
+            min-height: 200px; /* Space for growing button */
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 20px;
         }
 
         button {
@@ -96,20 +98,24 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            white-space: nowrap;
         }
 
         #yesBtn {
             background: white;
             color: #9333ea;
             z-index: 100;
+            min-width: 120px;
         }
 
         #noBtn {
             background: #333;
             color: white;
-            position: absolute;
+            position: absolute; /* Needed for jumping */
+            z-index: 99;
+            left: 55%; /* Initial position */
         }
 
         .action-btn {
@@ -118,12 +124,7 @@
             margin-top: 20px;
         }
 
-        .action-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(147, 51, 234, 0.3);
-        }
-
-        /* PROMISE SECTION ANIMATIONS */
+        /* PROMISE SECTION */
         .promise-header {
             font-family: "Dancing Script";
             font-size: 34px;
@@ -156,7 +157,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* FLOATING DECOR */
+        /* DECORATIONS */
         .floating {
             position: absolute;
             pointer-events: none;
@@ -214,14 +215,12 @@
     <div id="promiseSlide" class="slide">
         <div class="glass-card" style="background: rgba(255,255,255,0.95);">
             <div class="promise-header">My Vow to You...</div>
-            
             <div class="promises-list">
                 <p class="p-line" style="animation-delay: 0.5s;">✨ I promise to be your home, no matter where we are.</p>
                 <p class="p-line" style="animation-delay: 2s;">🌙 To be the light that finds you in your darkest hours.</p>
                 <p class="p-line" style="animation-delay: 3.5s;">♾️ To choose you, every single morning, forever.</p>
                 <p class="p-line" style="animation-delay: 5s;">❤️ To love you for all you are, and all you'll be.</p>
             </div>
-
             <div class="p-line" style="animation-delay: 7s; font-weight: 600;">
                 Ready for our forever?
                 <br>
@@ -246,53 +245,68 @@
     const promiseSlide = document.getElementById("promiseSlide");
 
     let page = 0;
-    let yesSize = 18;
-    const noTexts = ["No", "Are you sure? 😌", "Pleease? 😂", "Think again! 😏", "Look at the big button! ❤️"];
-    let noIdx = 0;
+    let yesFontSize = 18;
+    
+    // Funny Yes Button Messages
+    const yesTexts = [
+        "Yes", 
+        "Are you sure? 😌", 
+        "Come on, yesss! 😂", 
+        "You know it's YES 😏", 
+        "Just click YES already ❤️", 
+        "Of course YES 😍", 
+        "Stop playing! Click me! ✨",
+        "Destiny says YES! 🌟",
+        "Resistance is futile! 🤖",
+        "I'm getting huge! Click me! 🎈"
+    ];
+    let msgIndex = 0;
 
     function nextSlide() {
         page++;
         slider.style.transform = `translateX(-${page * 100}vw)`;
-        
-        // Trigger promise animations when we reach that slide
-        if(page === 3) {
-            promiseSlide.classList.add('active-promise');
-        }
+        if(page === 3) promiseSlide.classList.add('active-promise');
     }
 
-    // CAT & MOUSE NO BUTTON
+    // RUNAWAY NO BUTTON LOGIC
     function moveNoButton() {
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        // Calculate a safe area for the button to jump (within 80% of screen)
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 100);
         
         noBtn.style.position = 'fixed';
         noBtn.style.left = `${x}px`;
         noBtn.style.top = `${y}px`;
 
-        // Grow Yes Button
-        yesSize += 10;
-        yesBtn.style.fontSize = `${yesSize}px`;
-        yesBtn.style.padding = `${15 + page}px ${35 + page}px`;
+        // GROW THE YES BUTTON
+        yesFontSize += 12;
+        yesBtn.style.fontSize = `${yesFontSize}px`;
+        yesBtn.style.padding = `${15 + (msgIndex * 2)}px ${35 + (msgIndex * 4)}px`;
 
-        if(noIdx < noTexts.length - 1) noIdx++;
-        noBtn.innerText = noTexts[noIdx];
+        // CHANGE YES BUTTON TEXT
+        if (msgIndex < yesTexts.length - 1) {
+            msgIndex++;
+            yesBtn.innerText = yesTexts[msgIndex];
+        }
     }
 
+    // Event listeners for No Button (Desktop and Mobile)
     noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('click', moveNoButton);
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent accidental clicking on mobile
+        moveNoButton();
+    });
 
     // YES BUTTON CLICK
     yesBtn.onclick = () => {
         nextSlide();
         video.play().catch(e => console.log("Play blocked"));
-        
         video.onended = () => {
             nextSlide();
             song.play();
         };
     };
 
-    // FINAL CELEBRATION
     function celebrate() {
         confetti({
             particleCount: 150,
@@ -303,7 +317,7 @@
         setTimeout(nextSlide, 1000);
     }
 
-    // FLOATING HEARTS & BALLOONS
+    // FLOATING BACKGROUND DECOR
     function createDecoration(emoji, duration) {
         const el = document.createElement("div");
         el.className = "floating";
@@ -311,7 +325,6 @@
         el.style.left = Math.random() * 100 + "vw";
         el.style.fontSize = (Math.random() * 20 + 20) + "px";
         el.style.animationDuration = (Math.random() * 3 + duration) + "s";
-        el.style.opacity = Math.random();
         document.body.appendChild(el);
         setTimeout(() => el.remove(), duration * 1000);
     }
@@ -322,4 +335,5 @@
 </script>
 
 </body>
-</html>
+        </html>
+        
