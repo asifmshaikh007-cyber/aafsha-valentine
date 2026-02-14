@@ -1,302 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Aafsha ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --purple-grad: linear-gradient(135deg, #f3e8ff, #e879f9, #c084fc);
+            --glass: rgba(255, 255, 255, 0.2);
+        }
 
-<title>Aafsha ❤️</title>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: #000; /* Fallback */
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+        /* SLIDER CONTAINER */
+        .slider {
+            display: flex;
+            width: 500%;
+            height: 100vh;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
 
-<style>
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: var(--purple-grad);
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-body{
-margin:0;
-overflow:hidden;
-font-family:Poppins;
-}
+        /* GLASS CARD EFFECT */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            z-index: 10;
+            max-width: 90%;
+        }
 
-/* SLIDER */
-.slider{
-display:flex;
-width:500%;
-height:100vh;
-transition:transform 0.8s ease;
-}
+        .title {
+            font-family: "Dancing Script", cursive;
+            font-size: clamp(32px, 8vw, 54px);
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
 
-.slide{
-width:100vw;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
+        /* BUTTONS */
+        .btn-container {
+            position: relative;
+            height: 150px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-/* FIRST PAGE VALENTINE STYLE */
-.valentine{
-background:linear-gradient(135deg,#f3e8ff,#e879f9,#c084fc);
-color:white;
-position:relative;
-overflow:hidden;
-}
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-.title{
-font-family:"Dancing Script";
-font-size:48px;
-margin-bottom:30px;
-}
+        #yesBtn {
+            background: white;
+            color: #9333ea;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
 
-/* Buttons */
+        #noBtn {
+            background: #333;
+            color: white;
+            position: absolute;
+        }
 
-button{
-padding:14px 30px;
-border:none;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-margin:10px;
-transition:0.3s;
-}
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-#yesBtn{
-background:white;
-color:#9333ea;
-font-weight:bold;
-}
+        /* DECORATIONS */
+        .floating {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            animation: float Up 6s linear infinite;
+        }
 
-#noBtn{
-background:black;
-color:white;
-position:absolute;
-}
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
 
-/* Hearts */
+        video, .gif {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            border: 5px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
-.heart{
-position:absolute;
-color:#ff4d6d;
-font-size:20px;
-animation:float 6s linear infinite;
-}
+        .promise-text {
+            color: #4a1d96;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
 
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
-}
+        .love-text {
+            font-family: "Dancing Script";
+            font-size: clamp(50px, 12vw, 80px);
+            background: linear-gradient(to right, #9333ea, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
 
-/* Balloons */
-
-.balloon{
-position:absolute;
-font-size:30px;
-animation:float 10s linear infinite;
-}
-
-/* Video */
-
-video{
-width:90%;
-max-width:400px;
-border-radius:20px;
-}
-
-/* Mission gif */
-
-.gif{
-width:300px;
-border-radius:20px;
-}
-
-/* Promise */
-
-.promise-box{
-background:white;
-padding:30px;
-border-radius:20px;
-max-width:500px;
-box-shadow:0 0 20px rgba(0,0,0,0.2);
-}
-
-/* Final */
-
-.love{
-font-family:"Dancing Script";
-font-size:60px;
-color:#9333ea;
-}
-
-</style>
+    </style>
 </head>
-
 <body>
 
-<audio id="perfectSong" src="perfect.mp3"></audio>
+<audio id="perfectSong" src="perfect.mp3" loop></audio>
 
 <div class="slider" id="slider">
 
-<!-- PAGE 1 -->
-<div class="slide valentine">
+    <div class="slide">
+        <div class="glass-card">
+            <div class="title">Aafsha... ❤️</div>
+            <p style="color:white; font-size: 1.2rem;">Will you be my forever Valentine?</p>
+            <div class="btn-container">
+                <button id="yesBtn">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
 
-<div class="title">
-Aafsha… ❤️<br>
-Will you be my forever Valentine?
-</div>
+    <div class="slide" style="background: #fff;">
+        <video id="video" playsinline>
+            <source src="kbc-7crore.mp4" type="video/mp4">
+        </video>
+    </div>
 
-<button id="yesBtn">Yes</button>
-<button id="noBtn">No</button>
+    <div class="slide">
+        <div class="glass-card">
+            <h2 style="color:white">Mission Successful 😎</h2>
+            <img src="mission.gif" class="gif">
+            <br><br>
+            <button onclick="nextSlide()" style="background:#9333ea; color:white;">Continue ❤️</button>
+        </div>
+    </div>
 
-</div>
+    <div class="slide">
+        <div class="glass-card" style="background: white;">
+            <div class="promise-text">
+                <p><strong>I promise...</strong></p>
+                <p>To stand beside you always.<br>
+                To protect your beautiful heart.<br>
+                To make you smile on the hardest days.</p>
+                <p>Ready for our forever? ❤️</p>
+            </div>
+            <button onclick="nextSlide()" style="background:#9333ea; color:white;">Yes, Forever ❤️</button>
+        </div>
+    </div>
 
-
-<!-- PAGE 2 VIDEO -->
-<div class="slide">
-
-<video id="video">
-<source src="kbc-7crore.mp4">
-</video>
-
-</div>
-
-
-<!-- PAGE 3 MISSION -->
-<div class="slide">
-
-<h2>Mission Successful 😎</h2>
-
-<img src="mission.gif" class="gif">
-
-<br>
-
-<button onclick="nextSlide()">Continue ❤️</button>
-
-</div>
-
-
-<!-- PAGE 4 PROMISE -->
-<div class="slide">
-
-<div class="promise-box">
-
-I promise to stand beside you always.  
-To protect your heart.  
-To make you smile even on your hardest days.  
-
-To grow with you.  
-To love you deeper every single day.  
-
-Are you ready for this forever? ❤️
-
-<br><br>
-
-<button onclick="nextSlide()">Yes, Forever ❤️</button>
+    <div class="slide" style="background: #fdf2f8;">
+        <div class="love-text">I LOVE YOU ❤️</div>
+        <img src="minion.gif" class="gif" style="border:none; box-shadow:none;">
+    </div>
 
 </div>
-
-</div>
-
-
-<!-- PAGE 5 FINAL -->
-<div class="slide">
-
-<div class="love">I LOVE YOU ❤️</div>
-
-<img src="minion.gif" class="gif">
-
-</div>
-
-</div>
-
 
 <script>
+    const slider = document.getElementById("slider");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const video = document.getElementById("video");
+    const song = document.getElementById("perfectSong");
 
-let slider=document.getElementById("slider");
-let page=0;
+    let page = 0;
+    let yesSize = 18;
 
-function nextSlide(){
+    const texts = [
+        "No", "Are you sure? 😌", "Pleease? 😂", "Think again! 😏", "Try the other button ❤️"
+    ];
+    let textIdx = 0;
 
-page++;
-slider.style.transform="translateX(-"+page*100+"vw)";
+    function nextSlide() {
+        page++;
+        slider.style.transform = `translateX(-${page * 100}vw)`;
+    }
 
-}
+    // SMART NO BUTTON LOGIC
+    noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('click', moveButton);
 
-/* HEARTS */
+    function moveButton() {
+        // Calculate bounds so button doesn't leave the screen or the card
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
 
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},500);
+        // Make Yes button bigger
+        yesSize += 10;
+        yesBtn.style.fontSize = `${yesSize}px`;
+        yesBtn.style.padding = `${15 + (page*2)}px ${35 + (page*5)}px`;
 
-/* BALLOONS */
+        // Update No button text
+        if(textIdx < texts.length - 1) textIdx++;
+        noBtn.innerText = texts[textIdx];
+    }
 
-setInterval(()=>{
-let b=document.createElement("div");
-b.className="balloon";
-b.innerHTML="🎈";
-b.style.left=Math.random()*100+"vw";
-document.body.appendChild(b);
-setTimeout(()=>b.remove(),10000);
-},1500);
+    yesBtn.onclick = () => {
+        nextSlide();
+        video.play().catch(e => console.log("Auto-play blocked"));
+        
+        video.onended = () => {
+            nextSlide();
+            song.play();
+        };
+    };
 
+    // FLOATING ELEMENTS GENERATOR
+    function createDecoration(emoji, className, duration) {
+        const el = document.createElement("div");
+        el.className = `floating ${className}`;
+        el.innerHTML = emoji;
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.fontSize = (Math.random() * 20 + 20) + "px";
+        el.style.animationDuration = (Math.random() * 3 + duration) + "s";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), duration * 1000);
+    }
 
-/* YES NO LOGIC */
-
-let yes=document.getElementById("yesBtn");
-let no=document.getElementById("noBtn");
-
-let texts=[
-"Yes",
-"Are you sure? 😌",
-"Come on yesss 😂",
-"You know it's YES 😏",
-"Just click YES already ❤️",
-"Of course YES 😍"
-];
-
-let index=0;
-let size=18;
-
-no.onclick=function(){
-
-no.style.left=Math.random()*300+"px";
-no.style.top=Math.random()*400+"px";
-
-size+=8;
-yes.style.fontSize=size+"px";
-
-if(index<texts.length-1){
-
-index++;
-yes.innerText=texts[index];
-
-}
-
-};
-
-
-yes.onclick=function(){
-
-nextSlide();
-
-let video=document.getElementById("video");
-
-video.play();
-
-video.onended=function(){
-
-nextSlide();
-
-/* Start perfect song after mission appears */
-
-document.getElementById("perfectSong").play();
-
-};
-
-};
+    setInterval(() => createDecoration("❤️", "heart", 6), 600);
+    setInterval(() => createDecoration("🎈", "balloon", 10), 2000);
 
 </script>
 
