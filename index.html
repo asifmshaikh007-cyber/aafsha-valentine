@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Aafsha ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
@@ -12,62 +10,55 @@
 
 body{
 margin:0;
-background: linear-gradient(135deg,#e6e6fa,#ffc0cb);
-font-family:'Poppins',sans-serif;
+font-family:Poppins;
+background:linear-gradient(135deg,#e6ccff,#ffc0cb);
+overflow:hidden;
 text-align:center;
-overflow-x:hidden;
+color:#6a0dad;
 }
 
-/* Floating hearts */
-
+/* Floating Hearts */
 .heart{
 position:fixed;
 bottom:-50px;
-font-size:24px;
+font-size:20px;
 animation:floatUp 6s linear infinite;
 }
-
 @keyframes floatUp{
 0%{transform:translateY(0);opacity:1;}
 100%{transform:translateY(-100vh);opacity:0;}
 }
 
-/* Main container */
-
-.container{
-margin-top:100px;
+/* Pages */
+.page{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
 h1{
 font-family:'Great Vibes',cursive;
 font-size:42px;
-color:#d63384;
 }
 
 /* Buttons */
-
-.btn{
-padding:15px 30px;
-font-size:20px;
+button{
+padding:12px 25px;
 border:none;
-border-radius:30px;
-margin:20px;
+border-radius:25px;
+font-size:18px;
+margin:10px;
 cursor:pointer;
 }
 
-.yes{
-background:#28a745;
-color:white;
-}
-
-.no{
-background:#dc3545;
-color:white;
-position:absolute;
-}
+.yes{background:#28a745;color:white;}
+.no{background:#dc3545;color:white;position:absolute;}
+.next{background:#6f42c1;color:white;margin-top:30px;}
 
 /* Video popup */
-
 #videoPopup{
 display:none;
 position:fixed;
@@ -76,222 +67,142 @@ left:50%;
 transform:translate(-50%,-50%);
 background:black;
 padding:10px;
-border-radius:10px;
+border-radius:15px;
 z-index:1000;
 }
-
 video{
 width:300px;
 border-radius:10px;
 }
 
-/* Final message */
+/* Typing effect */
+#typedText{
+font-size:22px;
+max-width:300px;
+min-height:120px;
+}
 
-#finalMessage{
+/* Page visibility */
+#page2,#page3{
 display:none;
-font-size:28px;
-margin-top:30px;
-color:#6f42c1;
-animation:fadeIn 2s;
-}
-
-/* Memories */
-
-#memories{
-display:none;
-padding:40px;
-background:linear-gradient(#ffc0cb,#e6e6fa);
-}
-
-.memory{
-margin-top:40px;
-animation:fadeInUp 2s;
-}
-
-.memory img{
-width:85%;
-max-width:400px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.memory p{
-font-size:20px;
-}
-
-/* Confetti */
-
-.confetti{
-position:fixed;
-width:10px;
-height:10px;
-background:red;
-top:0;
-animation:fall 4s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(0);}
-100%{transform:translateY(100vh);}
-}
-
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-@keyframes fadeInUp{
-from{
-opacity:0;
-transform:translateY(50px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 
 </style>
-
 </head>
 
 <body>
 
 <!-- Background Music -->
-
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
 <source src="romantic.mp3" type="audio/mp3">
 </audio>
 
-<!-- Floating Hearts -->
-
+<!-- Floating Hearts Script -->
 <script>
-
 setInterval(()=>{
 let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💜";
 heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(20+Math.random()*20)+"px";
 document.body.appendChild(heart);
-
 setTimeout(()=>heart.remove(),6000);
-
 },500);
-
 </script>
 
-<!-- Main Page -->
-
-<div class="container">
+<!-- PAGE 1 -->
+<div class="page" id="page1">
 
 <h1>Aafsha,<br>Will you be my Forever Valentine? ❤️</h1>
 
-<button class="btn yes" onclick="accept()">YES 💖</button>
-
-<button class="btn no" id="noBtn">NO 💔</button>
+<button class="yes" onclick="playVideo()">YES 💖</button>
+<button class="no" id="noBtn">NO 💔</button>
 
 </div>
 
 <!-- Video Popup -->
-
 <div id="videoPopup">
-
 <video id="memeVideo">
-
 <source src="kbc-7crore.mp4" type="video/mp4">
-
 </video>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+
+<h1>Something I Need To Tell You…</h1>
+
+<div id="typedText"></div>
+
+<button class="next" onclick="goToPage3()">Tap To Continue ➡️</button>
 
 </div>
 
-<!-- Final Message -->
+<!-- PAGE 3 -->
+<div class="page" id="page3">
 
-<div id="finalMessage">
+<h1>
+Aafsha ❤️<br>
+Will you choose me…<br>
+Today, Tomorrow & Always? 💍
+</h1>
 
-You didn’t just say YES…<br>
-You made me the luckiest man alive ❤️✨
-
-</div>
-
-<!-- Memories Section -->
-
-<div id="memories">
-
-<h1>Our Beautiful Memories ❤️</h1>
-
-<div class="memory">
-<img src="memory1.jpg">
-<p>The moment I realized how lucky I am 💜</p>
-</div>
-
-<div class="memory">
-<img src="memory2.jpg">
-<p>You make everything magical ✨</p>
-</div>
-
-<div class="memory">
-<img src="memory3.jpg">
-<p>Forever starts with you ❤️</p>
-</div>
+<p style="font-size:22px;margin-top:20px;">
+You didn’t just become my Valentine…<br>
+You became my forever. ✨
+</p>
 
 </div>
 
 <script>
 
+/* Start music on first click */
+document.body.addEventListener("click",function(){
+document.getElementById("bgMusic").play().catch(()=>{});
+},{once:true});
+
 /* Runaway NO button */
-
 let noBtn=document.getElementById("noBtn");
-
 noBtn.addEventListener("mouseover",()=>{
-
 noBtn.style.top=Math.random()*80+"vh";
 noBtn.style.left=Math.random()*80+"vw";
-
 });
 
-/* YES clicked */
-
-function accept(){
-
-let videoPopup=document.getElementById("videoPopup");
+/* Play Meme Video */
+function playVideo(){
+let popup=document.getElementById("videoPopup");
 let video=document.getElementById("memeVideo");
-
-videoPopup.style.display="block";
-
+popup.style.display="block";
 video.play();
 
-/* Confetti */
-
-for(let i=0;i<50;i++){
-
-let conf=document.createElement("div");
-conf.className="confetti";
-
-conf.style.left=Math.random()*100+"vw";
-conf.style.background=
-["red","blue","yellow","green","pink"]
-[Math.floor(Math.random()*5)];
-
-conf.style.animationDuration=
-(2+Math.random()*3)+"s";
-
-document.body.appendChild(conf);
-
-}
-
-/* After video ends */
-
 video.onended=function(){
-
-videoPopup.style.display="none";
-
-document.getElementById("finalMessage").style.display="block";
-
-document.getElementById("memories").style.display="block";
-
+popup.style.display="none";
+document.getElementById("page1").style.display="none";
+document.getElementById("page2").style.display="flex";
+startTyping();
+}
 }
 
+/* Typing Love Letter */
+let message="The day you walked into my life, everything changed. I don’t need 7 crore… I just need you, forever.";
+let i=0;
+
+function startTyping(){
+let speed=50;
+let typed=document.getElementById("typedText");
+let typing=setInterval(()=>{
+if(i<message.length){
+typed.innerHTML+=message.charAt(i);
+i++;
+}else{
+clearInterval(typing);
+}
+},speed);
+}
+
+/* Go To Page 3 */
+function goToPage3(){
+document.getElementById("page2").style.display="none";
+document.getElementById("page3").style.display="flex";
 }
 
 </script>
