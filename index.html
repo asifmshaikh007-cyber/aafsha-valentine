@@ -13,7 +13,7 @@
         :root {
             --primary-pink: #ff4d6d;
             --purple-grad: linear-gradient(135deg, #f3e8ff, #e879f9, #c084fc);
-            --glass: rgba(255, 255, 255, 0.25);
+            --glass: rgba(255, 255, 255, 0.3);
             --text-dark: #4a1d96;
         }
 
@@ -49,25 +49,29 @@
             box-sizing: border-box;
         }
 
-        /* GLASS CARD EFFECT */
+        /* DYNAMIC GLASS CARD */
         .glass-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 40px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 40px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             z-index: 10;
-            max-width: 500px;
-            width: 90%;
-            transition: all 0.3s ease;
+            max-width: 95%; /* Allows it to grow wide */
+            width: auto;     /* Growth based on content */
+            min-width: 300px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* TYPOGRAPHY */
         .title {
             font-family: "Dancing Script", cursive;
-            font-size: clamp(38px, 8vw, 56px);
+            font-size: clamp(32px, 8vw, 56px);
             color: white;
             margin-bottom: 10px;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
@@ -77,106 +81,72 @@
             color: white;
             font-size: 1.1rem;
             margin-bottom: 30px;
-            opacity: 0.9;
         }
 
         /* BUTTONS */
         .btn-container {
             position: relative;
-            min-height: 200px; /* Space for growing button */
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-        }
-
-        button {
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            white-space: nowrap;
+            flex-wrap: wrap; /* Important for button growth */
         }
 
         #yesBtn {
             background: white;
             color: #9333ea;
             z-index: 100;
-            min-width: 120px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            white-space: normal; /* Allows text to wrap if it gets TOO big */
+            line-height: 1.2;
         }
 
         #noBtn {
             background: #333;
             color: white;
-            position: absolute; /* Needed for jumping */
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            position: absolute;
             z-index: 99;
-            left: 55%; /* Initial position */
+            transition: 0.1s ease;
         }
 
         .action-btn {
             background: #9333ea;
             color: white;
             margin-top: 20px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
         }
 
         /* PROMISE SECTION */
-        .promise-header {
-            font-family: "Dancing Script";
-            font-size: 34px;
-            color: #db2777;
-            margin-bottom: 20px;
-        }
+        .promise-header { font-family: "Dancing Script"; font-size: 34px; color: #db2777; margin-bottom: 20px; }
+        .p-line { font-size: 1.05rem; color: var(--text-dark); margin: 15px 0; opacity: 0; transform: translateY(15px); }
+        .active-promise .p-line { animation: revealLine 1s ease forwards; }
 
-        .p-line {
-            font-size: 1.05rem;
-            color: var(--text-dark);
-            margin: 15px 0;
-            opacity: 0;
-            transform: translateY(15px);
-        }
+        @keyframes revealLine { to { opacity: 1; transform: translateY(0); } }
 
-        .active-promise .p-line {
-            animation: revealLine 1s ease forwards;
-        }
-
-        @keyframes revealLine {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* MEDIA ELEMENTS */
-        video, .gif {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 20px;
-            border: 6px solid white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        /* DECORATIONS */
-        .floating {
-            position: absolute;
-            pointer-events: none;
-            z-index: 1;
-            animation: floatUp 6s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-        }
-
-        .final-love {
-            font-family: "Dancing Script";
-            font-size: clamp(55px, 12vw, 85px);
-            background: linear-gradient(to right, #9333ea, #db2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        /* MEDIA & DECOR */
+        video, .gif { width: 100%; max-width: 350px; border-radius: 20px; border: 6px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .floating { position: absolute; pointer-events: none; z-index: 1; animation: floatUp 6s linear infinite; }
+        @keyframes floatUp { 0% { transform: translateY(110vh); opacity: 1; } 100% { transform: translateY(-20vh); opacity: 0; } }
+        .final-love { font-family: "Dancing Script"; font-size: clamp(50px, 12vw, 85px); background: linear-gradient(to right, #9333ea, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     </style>
 </head>
@@ -187,7 +157,7 @@
 <div class="slider" id="slider">
 
     <div class="slide">
-        <div class="glass-card">
+        <div class="glass-card" id="mainCard">
             <div class="title">Aafsha... ❤️</div>
             <div class="subtitle">Will you be my forever Valentine?</div>
             <div class="btn-container">
@@ -205,9 +175,8 @@
 
     <div class="slide">
         <div class="glass-card">
-            <h2 style="color:white; margin-top:0;">Mission Successful 😎</h2>
+            <h2 style="color:white; margin:0 0 20px 0;">Mission Successful 😎</h2>
             <img src="mission.gif" class="gif">
-            <br>
             <button class="action-btn" onclick="nextSlide()">Continue ❤️</button>
         </div>
     </div>
@@ -222,8 +191,7 @@
                 <p class="p-line" style="animation-delay: 5s;">❤️ To love you for all you are, and all you'll be.</p>
             </div>
             <div class="p-line" style="animation-delay: 7s; font-weight: 600;">
-                Ready for our forever?
-                <br>
+                Ready for our forever? <br>
                 <button class="action-btn" onclick="celebrate()">Yes, Forever & Always ❤️</button>
             </div>
         </div>
@@ -246,19 +214,20 @@
 
     let page = 0;
     let yesFontSize = 18;
-    
-    // Funny Yes Button Messages
+    let paddingVertical = 15;
+    let paddingHorizontal = 35;
+
     const yesTexts = [
         "Yes", 
         "Are you sure? 😌", 
         "Come on, yesss! 😂", 
         "You know it's YES 😏", 
         "Just click YES already ❤️", 
-        "Of course YES 😍", 
-        "Stop playing! Click me! ✨",
-        "Destiny says YES! 🌟",
-        "Resistance is futile! 🤖",
-        "I'm getting huge! Click me! 🎈"
+        "Wait, is the NO button broken? 🤣",
+        "It's fate, Aafsha! 😍",
+        "Click the big giant button! 🎈",
+        "I'm taking over the screen! 😈",
+        "YES YES YES YES! ✨"
     ];
     let msgIndex = 0;
 
@@ -268,38 +237,36 @@
         if(page === 3) promiseSlide.classList.add('active-promise');
     }
 
-    // RUNAWAY NO BUTTON LOGIC
+    // RUNAWAY LOGIC
     function moveNoButton() {
-        // Calculate a safe area for the button to jump (within 80% of screen)
-        const x = Math.random() * (window.innerWidth - 150);
-        const y = Math.random() * (window.innerHeight - 100);
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
         
         noBtn.style.position = 'fixed';
         noBtn.style.left = `${x}px`;
         noBtn.style.top = `${y}px`;
 
-        // GROW THE YES BUTTON
-        yesFontSize += 12;
-        yesBtn.style.fontSize = `${yesFontSize}px`;
-        yesBtn.style.padding = `${15 + (msgIndex * 2)}px ${35 + (msgIndex * 4)}px`;
+        // GROWTH LOGIC
+        yesFontSize += 10;
+        paddingVertical += 5;
+        paddingHorizontal += 8;
 
-        // CHANGE YES BUTTON TEXT
+        yesBtn.style.fontSize = `${yesFontSize}px`;
+        yesBtn.style.padding = `${paddingVertical}px ${paddingHorizontal}px`;
+
+        // Update Text
         if (msgIndex < yesTexts.length - 1) {
             msgIndex++;
             yesBtn.innerText = yesTexts[msgIndex];
         }
     }
 
-    // Event listeners for No Button (Desktop and Mobile)
     noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevent accidental clicking on mobile
-        moveNoButton();
-    });
+    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
 
-    // YES BUTTON CLICK
+    // SUCCESS ACTION
     yesBtn.onclick = () => {
-        nextSlide();
+        nextSlide(); // Enter the next page (Video)
         video.play().catch(e => console.log("Play blocked"));
         video.onended = () => {
             nextSlide();
@@ -308,32 +275,22 @@
     };
 
     function celebrate() {
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#ff4d6d', '#9333ea', '#ffffff']
-        });
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#9333ea', '#ffffff'] });
         setTimeout(nextSlide, 1000);
     }
 
-    // FLOATING BACKGROUND DECOR
-    function createDecoration(emoji, duration) {
+    // DECORATION
+    setInterval(() => {
         const el = document.createElement("div");
         el.className = "floating";
-        el.innerHTML = emoji;
+        el.innerHTML = Math.random() > 0.5 ? "❤️" : "🎈";
         el.style.left = Math.random() * 100 + "vw";
         el.style.fontSize = (Math.random() * 20 + 20) + "px";
-        el.style.animationDuration = (Math.random() * 3 + duration) + "s";
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), duration * 1000);
-    }
-
-    setInterval(() => createDecoration("❤️", 6), 700);
-    setInterval(() => createDecoration("🎈", 10), 2500);
+        setTimeout(() => el.remove(), 6000);
+    }, 700);
 
 </script>
 
 </body>
-        </html>
-        
+</html>
