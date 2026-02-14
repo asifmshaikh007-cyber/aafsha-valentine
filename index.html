@@ -1,85 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 💖</title>
+
+<title>Aafsha ❤️ Valentine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-padding:0;
-background:#f3e8ff;
-font-family:Georgia,serif;
-text-align:center;
 overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#e6ccff,#f5e6ff);
+text-align:center;
+height:100vh;
+}
+
+/* floating hearts */
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* balloons */
+.balloon{
+position:absolute;
+font-size:30px;
+animation:floatBalloon 10s linear infinite;
+}
+
+@keyframes floatBalloon{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-20vh);}
+}
+
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
 h1{
-margin-top:120px;
-font-size:40px;
+font-family:'Pacifico',cursive;
+font-size:32px;
+color:#6a0dad;
 }
 
 button{
 padding:12px 25px;
-font-size:20px;
+font-size:18px;
 border:none;
-border-radius:12px;
-margin:15px;
+border-radius:25px;
 cursor:pointer;
+margin:10px;
 }
 
 #yesBtn{
-background:#22c55e;
+background:#ff4da6;
 color:white;
 }
 
 #noBtn{
-background:#ef4444;
+background:gray;
 color:white;
 position:absolute;
 }
 
-.popup{
+/* video popup */
+#videoPopup{
 position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(0);
-background:white;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 25px rgba(0,0,0,0.3);
-transition:0.3s;
-z-index:1000;
-}
-
-.popup.show{
-transform:translate(-50%,-50%) scale(1);
-}
-
-.popupText{
-font-size:28px;
-color:purple;
-margin-top:15px;
-}
-
-#finalMessage{
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
 display:none;
-margin-top:50px;
-font-size:26px;
-color:#7e22ce;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
-.heart{
+video{
+width:90%;
+max-width:400px;
+border-radius:15px;
+}
+
+#finalMsg{
+display:none;
+font-size:28px;
+color:#6a0dad;
+font-family:'Pacifico',cursive;
+}
+
+/* confetti */
+.confetti{
 position:absolute;
-color:red;
-font-size:24px;
-animation:float 5s linear infinite;
+width:10px;
+height:10px;
+background:red;
+animation:confettiFall 3s linear infinite;
 }
 
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
+@keyframes confettiFall{
+0%{transform:translateY(0);}
+100%{transform:translateY(100vh);}
 }
 
 </style>
@@ -87,66 +123,129 @@ animation:float 5s linear infinite;
 
 <body>
 
-<h1>Aafsha, will you be mine? 💖</h1>
+<div class="container" id="mainPage">
 
-<button id="yesBtn">YES 😍</button>
-<button id="noBtn">NO 😜</button>
+<h1>
+Aafsha,<br>
+Will you be my forever Valentine? ❤️
+</h1>
 
-<!-- VIDEO POPUP -->
-<div class="popup" id="popup">
+<button id="yesBtn" onclick="playVideo()">YES ❤️</button>
+<button id="noBtn">NO 💔</button>
 
-<video id="memeVideo" width="280" playsinline>
-<source src="kbc-7crore.mp4" type="video/mp4">
+</div>
+
+
+<div id="videoPopup">
+
+<video id="memeVideo">
+
+<source src="aafsha-valentine/kbc-7crore.mp4" type="video/mp4">
+
 </video>
 
-<div class="popupText">7 CRORE!!! 🎉</div>
-
 </div>
 
-<div id="finalMessage">
-You just made me the happiest person alive 💜✨
+
+<div id="finalMsg">
+You just made me the luckiest person alive ❤️✨
 </div>
+
 
 <script>
 
-let noBtn=document.getElementById("noBtn");
+/* runaway NO button */
+const noBtn=document.getElementById("noBtn");
 
-noBtn.onmouseover=function(){
+noBtn.addEventListener("mouseover",()=>{
 noBtn.style.top=Math.random()*80+"vh";
 noBtn.style.left=Math.random()*80+"vw";
-}
+});
 
-document.getElementById("yesBtn").onclick=function(){
 
-let popup=document.getElementById("popup");
+/* play video */
+function playVideo(){
+
+document.getElementById("mainPage").style.display="none";
+
+let popup=document.getElementById("videoPopup");
 let video=document.getElementById("memeVideo");
 
-popup.classList.add("show");
+popup.style.display="flex";
 
-video.currentTime=0;
 video.play();
 
 video.onended=function(){
-popup.classList.remove("show");
-document.getElementById("finalMessage").style.display="block";
-startHearts();
+
+popup.style.display="none";
+
+document.getElementById("finalMsg").style.display="block";
+
+startConfetti();
+
 };
 
 }
 
-function startHearts(){
 
-for(let i=0;i<20;i++){
+/* floating hearts */
+setInterval(()=>{
 
 let heart=document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML="❤️";
+
 heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(Math.random()*3+3)+"s";
 
 document.body.appendChild(heart);
 
-}
+setTimeout(()=>heart.remove(),6000);
+
+},300);
+
+
+/* balloons */
+const balloons=["🎈","🎈","🎈","💜","💙","💖"];
+
+setInterval(()=>{
+
+let balloon=document.createElement("div");
+
+balloon.className="balloon";
+
+balloon.innerHTML=balloons[Math.floor(Math.random()*balloons.length)];
+
+balloon.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(balloon);
+
+setTimeout(()=>balloon.remove(),10000);
+
+},1500);
+
+
+/* confetti */
+function startConfetti(){
+
+setInterval(()=>{
+
+let conf=document.createElement("div");
+
+conf.className="confetti";
+
+conf.style.left=Math.random()*100+"vw";
+
+conf.style.background=
+["red","blue","green","yellow","pink","purple"]
+[Math.floor(Math.random()*6)];
+
+document.body.appendChild(conf);
+
+setTimeout(()=>conf.remove(),3000);
+
+},100);
 
 }
 
