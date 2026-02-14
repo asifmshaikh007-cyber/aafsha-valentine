@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,13 +13,16 @@
 
 body{
 margin:0;
+padding:0;
 font-family:Poppins;
-background:linear-gradient(135deg,#e6ccff,#f9e6ff);
-text-align:center;
+background:linear-gradient(135deg,#e6ccff,#f3d9ff);
 overflow:hidden;
+text-align:center;
 }
 
-.page{
+/* main page */
+
+#mainPage{
 height:100vh;
 display:flex;
 flex-direction:column;
@@ -27,16 +31,19 @@ align-items:center;
 }
 
 h1{
-font-family:Pacifico;
+font-family:'Pacifico', cursive;
 color:#6a0dad;
 font-size:32px;
+margin-bottom:30px;
 }
 
+/* buttons */
+
 button{
-padding:12px 25px;
+padding:14px 28px;
 font-size:18px;
 border:none;
-border-radius:25px;
+border-radius:30px;
 margin:10px;
 cursor:pointer;
 }
@@ -47,34 +54,61 @@ color:white;
 }
 
 #noBtn{
-background:gray;
+background:#999;
 color:white;
 position:absolute;
 }
 
+/* popup */
+
 #videoPopup{
+
+display:none;
 position:fixed;
+
 top:0;
 left:0;
+
 width:100%;
 height:100%;
-background:black;
-display:none;
+
+background:rgba(0,0,0,0.95);
+
+z-index:999;
+
 justify-content:center;
 align-items:center;
-z-index:1000;
+flex-direction:column;
+
 }
 
-video{
+/* video */
+
+#videoPopup video{
+
 width:90%;
 max-width:400px;
+border-radius:15px;
+
+}
+
+/* close button */
+
+#closeBtn{
+
+margin-top:20px;
+padding:10px 20px;
+background:white;
 border-radius:20px;
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <!-- background music -->
 <audio id="bgMusic" loop>
@@ -82,11 +116,13 @@ border-radius:20px;
 </audio>
 
 
-<div class="page" id="mainPage">
+
+<!-- main page -->
+<div id="mainPage">
 
 <h1>
 Aafsha,<br>
-Will you be my forever Valentine? ❤️
+Will you be my Forever Valentine? ❤️
 </h1>
 
 <button id="yesBtn">YES ❤️</button>
@@ -96,34 +132,40 @@ Will you be my forever Valentine? ❤️
 </div>
 
 
+
+<!-- popup video -->
 <div id="videoPopup">
 
-<video id="memeVideo" controls playsinline>
+<video id="memeVideo" playsinline controls>
 
 <source src="aafsha-valentine/kbc-7crore.mp4" type="video/mp4">
 
 </video>
 
+<button id="closeBtn">Close</button>
+
 </div>
+
 
 
 <script>
 
-/* mobile autoplay fix */
-document.addEventListener("click", function(){
 
-document.getElementById("bgMusic").play();
+/* START MUSIC after first tap */
 
-}, { once:true });
+document.body.addEventListener("click", function(){
+
+let music=document.getElementById("bgMusic");
+
+music.play().catch(()=>{});
+
+},{once:true});
 
 
 
-/* runaway button */
+/* runaway NO button */
 
 let noBtn=document.getElementById("noBtn");
-
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("mouseover", moveNo);
 
 function moveNo(){
 
@@ -132,29 +174,47 @@ noBtn.style.left=Math.random()*80+"vw";
 
 }
 
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("mouseover", moveNo);
+
 
 
 /* YES button */
 
 document.getElementById("yesBtn").onclick=function(){
 
-let video=document.getElementById("memeVideo");
-
 let popup=document.getElementById("videoPopup");
+
+let video=document.getElementById("memeVideo");
 
 popup.style.display="flex";
 
-video.load();
+video.currentTime=0;
 
 video.play().catch(()=>{
 
-alert("Tap play button to hear 7 CRORE!");
+console.log("Tap play manually");
 
 });
 
 };
 
+
+
+/* close popup */
+
+document.getElementById("closeBtn").onclick=function(){
+
+document.getElementById("videoPopup").style.display="none";
+
+document.getElementById("memeVideo").pause();
+
+};
+
+
 </script>
+
+
 
 </body>
 </html>
