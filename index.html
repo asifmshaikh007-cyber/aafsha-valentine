@@ -14,39 +14,25 @@
             --primary-pink: #ff4d6d;
             --purple-grad: linear-gradient(135deg, #f3e8ff, #e879f9, #c084fc);
             --glass: rgba(255, 255, 255, 0.3);
-            --text-dark: #4a1d96;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; font-family: 'Poppins', sans-serif;
             background: #000;
         }
 
-        /* SLIDER LOGIC */
         .slider {
-            display: flex;
-            width: 500%;
-            height: 100vh;
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+            display: flex; width: 500%; height: 100vh;
+            transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
         .slide {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: var(--purple-grad);
-            position: relative;
-            padding: 20px;
-            box-sizing: border-box;
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; background: var(--purple-grad);
+            position: relative; padding: 20px; box-sizing: border-box;
         }
 
         /* DYNAMIC GLASS CARD */
@@ -55,95 +41,61 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 40px;
-            border-radius: 30px;
+            padding: 40px; border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             z-index: 10;
-            max-width: 95%; /* Allows it to grow wide */
-            width: auto;     /* Growth based on content */
-            min-width: 300px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: auto; min-width: 300px; max-width: 90%;
+            transition: all 0.3s ease-out;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* TYPOGRAPHY */
         .title {
             font-family: "Dancing Script", cursive;
             font-size: clamp(32px, 8vw, 56px);
-            color: white;
-            margin-bottom: 10px;
+            color: white; margin-bottom: 10px;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
         }
 
-        .subtitle {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
+        .subtitle { color: white; font-size: 1.1rem; margin-bottom: 30px; }
 
         /* BUTTONS */
         .btn-container {
-            position: relative;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Important for button growth */
+            position: relative; width: 100%;
+            display: flex; justify-content: center; align-items: center;
+            gap: 20px; min-height: 100px;
         }
 
         #yesBtn {
-            background: white;
-            color: #9333ea;
-            z-index: 100;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
+            background: white; color: #9333ea;
+            padding: 15px 35px; border: none; border-radius: 50px;
+            font-weight: 600; font-size: 18px; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            white-space: normal; /* Allows text to wrap if it gets TOO big */
-            line-height: 1.2;
+            transition: all 0.2s ease;
+            display: flex; justify-content: center; align-items: center;
+            white-space: normal; line-height: 1.2; z-index: 100;
         }
 
         #noBtn {
-            background: #333;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            position: absolute;
-            z-index: 99;
+            background: #333; color: white;
+            padding: 12px 25px; border: none; border-radius: 50px;
+            font-weight: 600; cursor: pointer;
+            position: absolute; z-index: 99;
             transition: 0.1s ease;
         }
 
         .action-btn {
-            background: #9333ea;
-            color: white;
-            margin-top: 20px;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
+            background: #9333ea; color: white; padding: 15px 35px;
+            border: none; border-radius: 50px; cursor: pointer; margin-top: 20px;
         }
 
         /* PROMISE SECTION */
         .promise-header { font-family: "Dancing Script"; font-size: 34px; color: #db2777; margin-bottom: 20px; }
-        .p-line { font-size: 1.05rem; color: var(--text-dark); margin: 15px 0; opacity: 0; transform: translateY(15px); }
+        .p-line { font-size: 1.05rem; color: #4a1d96; margin: 15px 0; opacity: 0; transform: translateY(15px); }
         .active-promise .p-line { animation: revealLine 1s ease forwards; }
-
         @keyframes revealLine { to { opacity: 1; transform: translateY(0); } }
 
-        /* MEDIA & DECOR */
-        video, .gif { width: 100%; max-width: 350px; border-radius: 20px; border: 6px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        /* VIDEO & GIFS */
+        video, .gif { width: 100%; max-width: 350px; border-radius: 20px; border: 6px solid white; }
         .floating { position: absolute; pointer-events: none; z-index: 1; animation: floatUp 6s linear infinite; }
         @keyframes floatUp { 0% { transform: translateY(110vh); opacity: 1; } 100% { transform: translateY(-20vh); opacity: 0; } }
         .final-love { font-family: "Dancing Script"; font-size: clamp(50px, 12vw, 85px); background: linear-gradient(to right, #9333ea, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -214,20 +166,13 @@
 
     let page = 0;
     let yesFontSize = 18;
-    let paddingVertical = 15;
-    let paddingHorizontal = 35;
+    let vPadding = 15;
+    let hPadding = 35;
 
     const yesTexts = [
-        "Yes", 
-        "Are you sure? 😌", 
-        "Come on, yesss! 😂", 
-        "You know it's YES 😏", 
-        "Just click YES already ❤️", 
-        "Wait, is the NO button broken? 🤣",
-        "It's fate, Aafsha! 😍",
-        "Click the big giant button! 🎈",
-        "I'm taking over the screen! 😈",
-        "YES YES YES YES! ✨"
+        "Yes", "Are you sure? 😌", "Come on, yesss! 😂", "You know it's YES 😏", 
+        "Just click YES already ❤️", "Is the NO button broken? 🤣", "It's destiny! 😍", 
+        "Click the GIANT button! 🎈", "I'm taking over! 😈", "JUST SAY YES! ✨"
     ];
     let msgIndex = 0;
 
@@ -237,22 +182,24 @@
         if(page === 3) promiseSlide.classList.add('active-promise');
     }
 
-    // RUNAWAY LOGIC
+    // RUNAWAY LOGIC (The "No" button will jump before it can be clicked)
     function moveNoButton() {
+        // Calculate random coordinates
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
         
+        // Move No Button
         noBtn.style.position = 'fixed';
-        noBtn.style.left = `${x}px`;
-        noBtn.style.top = `${y}px`;
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
 
-        // GROWTH LOGIC
+        // GROW Yes Button & Card
         yesFontSize += 10;
-        paddingVertical += 5;
-        paddingHorizontal += 8;
+        vPadding += 8;
+        hPadding += 12;
 
-        yesBtn.style.fontSize = `${yesFontSize}px`;
-        yesBtn.style.padding = `${paddingVertical}px ${paddingHorizontal}px`;
+        yesBtn.style.fontSize = yesFontSize + 'px';
+        yesBtn.style.padding = `${vPadding}px ${hPadding}px`;
 
         // Update Text
         if (msgIndex < yesTexts.length - 1) {
@@ -261,13 +208,17 @@
         }
     }
 
+    // Event Listeners for Runaway effect
     noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Stop mobile from clicking
+        moveNoButton();
+    });
 
-    // SUCCESS ACTION
+    // YES BUTTON ACTION
     yesBtn.onclick = () => {
-        nextSlide(); // Enter the next page (Video)
-        video.play().catch(e => console.log("Play blocked"));
+        nextSlide();
+        video.play().catch(() => console.log("User interaction needed for video"));
         video.onended = () => {
             nextSlide();
             song.play();
@@ -275,11 +226,11 @@
     };
 
     function celebrate() {
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#9333ea', '#ffffff'] });
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         setTimeout(nextSlide, 1000);
     }
 
-    // DECORATION
+    // BACKGROUND DECOR
     setInterval(() => {
         const el = document.createElement("div");
         el.className = "floating";
@@ -288,7 +239,7 @@
         el.style.fontSize = (Math.random() * 20 + 20) + "px";
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 6000);
-    }, 700);
+    }, 800);
 
 </script>
 
