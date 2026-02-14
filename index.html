@@ -1,26 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aafsha ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
+
+html{
+scroll-behavior:smooth;
+}
 
 body{
 margin:0;
 font-family:Poppins;
-background:linear-gradient(135deg,#e6e6fa,#d8b4fe);
-color:white;
-text-align:center;
-overflow:hidden;
+background:linear-gradient(135deg,#f3e8ff,#e9d5ff);
+color:#4c1d95;
+overflow-x:hidden;
 }
 
-/* hearts */
+/* Sections */
+section{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
+}
+
+/* Proposal */
+h1{
+font-size:32px;
+max-width:400px;
+}
+
+button{
+padding:14px 30px;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;
+margin:15px;
+transition:0.3s;
+}
+
+#yesBtn{
+background:#7c3aed;
+color:white;
+}
+
+#noBtn{
+background:black;
+color:white;
+position:absolute;
+}
+
+/* Video */
+video{
+width:90%;
+max-width:400px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Promise Card */
+.promise-box{
+background:rgba(255,255,255,0.4);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:20px;
+max-width:500px;
+font-size:18px;
+line-height:1.7;
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* Final */
+.love-text{
+font-family:Playfair Display;
+font-size:50px;
+color:#6b21a8;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px #c084fc;}
+to{ text-shadow:0 0 30px #a855f7;}
+}
+
+img{
+width:250px;
+margin-top:20px;
+border-radius:20px;
+}
+
 .heart{
 position:absolute;
-color:red;
+color:#e11d48;
 animation:float 6s linear infinite;
 }
 
@@ -29,205 +115,117 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-10vh);}
 }
 
-button{
-padding:15px 30px;
-font-size:20px;
-border:none;
-border-radius:30px;
-background:#ff1493;
-color:white;
-margin:20px;
-}
-
-#noBtn{
-position:absolute;
-background:black;
-}
-
-.page{
-display:none;
-}
-
-.active{
-display:block;
-}
-
-video,img{
-width:300px;
-border-radius:20px;
-margin-top:20px;
-}
-
-.bigText{
-font-family:'Great Vibes';
-font-size:60px;
-margin-top:100px;
-}
-
 </style>
-
 </head>
+
 <body>
 
-<audio id="bgMusic" src="romantic.mp3" loop></audio>
 <audio id="endSong" src="perfect.mp3"></audio>
 
-<!-- PAGE 1 -->
-<div id="page1" class="page active">
+<!-- SECTION 1 -->
+<section id="sec1">
 
-<h1>Aafsha,<br>Will you be my forever Valentine?</h1>
+<h1>Aafsha…<br>Will you be my forever Valentine? 🤍</h1>
 
-<button id="yesBtn">YES</button>
-<button id="noBtn">NO</button>
+<button id="yesBtn">Yes</button>
+<button id="noBtn">No</button>
 
-</div>
+</section>
 
-<!-- PAGE 2 VIDEO -->
-<div id="page2" class="page">
+<!-- SECTION 2 -->
+<section id="sec2">
 
 <video id="video">
 <source src="kbc-7crore.mp4">
 </video>
 
-</div>
+</section>
 
-<!-- PAGE 3 MISSION -->
-<div id="page3" class="page">
+<!-- SECTION 3 -->
+<section id="sec3">
 
-<h1>Mission Accomplished 😎</h1>
-<img src="mission.gif">
+<div class="promise-box" id="promiseBox">
 
-</div>
+Aafsha, from this moment and for every moment that follows,  
+I promise to stand beside you in every phase of life —  
+to celebrate your happiness, to protect your peace,  
+to support your dreams as if they were my own,  
+and to love you not just in the easy days but in the challenging ones too.  
 
-<!-- PAGE 4 PROMISE -->
-<div id="page4" class="page">
+I don’t promise perfection…  
+but I promise effort, loyalty, growth, and forever.  
 
-<h2 id="promiseText"></h2>
+Are you okay with being loved this deeply for the rest of your life? 🤍
 
-<button onclick="showPage(5)">YES I AM ❤️</button>
+<br><br>
 
-</div>
-
-<!-- PAGE 5 HAPPY -->
-<div id="page5" class="page">
-
-<h1>You made me the happiest person ❤️</h1>
-
-<img src="happy.gif">
-
-<button onclick="showPage(6)">Continue ❤️</button>
+<button onclick="goFinal()">I’m okay with forever ❤️</button>
 
 </div>
 
-<!-- PAGE 6 FINAL -->
-<div id="page6" class="page">
+</section>
 
-<div class="bigText">I LOVE YOU AAFSHA ❤️</div>
+<!-- SECTION 4 -->
+<section id="sec4">
+
+<div class="love-text">I LOVE YOU AAFSHA 🤍</div>
 
 <img src="minion.gif">
 
-</div>
+</section>
 
 <script>
 
-// play bg music
-document.body.onclick=function(){
-document.getElementById("bgMusic").play();
-}
-
-// hearts
+// Floating hearts
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
-h.innerHTML="❤️";
+h.innerHTML="❤";
 h.style.left=Math.random()*100+"vw";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
-},500);
+},700);
 
-// show page
-function showPage(n){
-
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
-document.getElementById("page"+n).classList.add("active");
-
-if(n==6)
-document.getElementById("endSong").play();
-
-}
-
-// NO run away
+// NO run
 let no=document.getElementById("noBtn");
-
 no.onclick=function(){
-
 no.style.left=Math.random()*300+"px";
-no.style.top=Math.random()*500+"px";
-
+no.style.top=Math.random()*400+"px";
 let yes=document.getElementById("yesBtn");
+yes.style.fontSize=(parseInt(window.getComputedStyle(yes).fontSize)+5)+"px";
+};
 
-yes.style.fontSize=(parseInt(window.getComputedStyle(yes).fontSize)+10)+"px";
-
-}
-
-// YES clicked
+// YES click
 document.getElementById("yesBtn").onclick=function(){
 
-document.getElementById("bgMusic").pause();
+document.getElementById("sec2").scrollIntoView();
 
-showPage(2);
+let video=document.getElementById("video");
+video.play();
 
-let v=document.getElementById("video");
+video.onended=function(){
 
-v.play();
+// start perfect immediately
+document.getElementById("endSong").play();
 
-v.onended=function(){
+// scroll to promise
+document.getElementById("sec3").scrollIntoView();
 
-showPage(3);
-
+// show animation
 setTimeout(()=>{
-showPage(4);
-typePromise();
-},3000);
+document.getElementById("promiseBox").classList.add("show");
+},300);
 
 }
 
-}
+};
 
-// typing promise
-let text=`Aafsha...
-
-I promise to stand beside you in every phase of life.
-
-To make you smile when you're sad.
-
-To support your dreams.
-
-To love you more every day.
-
-Are you okay with being loved forever? ❤️`;
-
-let i=0;
-
-function typePromise(){
-
-let el=document.getElementById("promiseText");
-
-let interval=setInterval(()=>{
-
-el.innerHTML+=text[i];
-
-i++;
-
-if(i>=text.length)
-clearInterval(interval);
-
-},50);
-
+// final page
+function goFinal(){
+document.getElementById("sec4").scrollIntoView();
 }
 
 </script>
 
 </body>
-</html>
+  </html>
