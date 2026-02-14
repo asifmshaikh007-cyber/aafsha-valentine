@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Aafsha ❤️ Valentine</title>
+<title>Aafsha ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
@@ -12,16 +12,15 @@
 
 body{
 margin:0;
-overflow:hidden;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#e6ccff,#f5e6ff);
+background:linear-gradient(135deg,#e6ccff,#f9e6ff);
+overflow-x:hidden;
 text-align:center;
-height:100vh;
 }
 
 /* floating hearts */
 .heart{
-position:absolute;
+position:fixed;
 color:red;
 font-size:20px;
 animation:floatUp 6s linear infinite;
@@ -32,31 +31,22 @@ animation:floatUp 6s linear infinite;
 100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* balloons */
-.balloon{
-position:absolute;
-font-size:30px;
-animation:floatBalloon 10s linear infinite;
-}
-
-@keyframes floatBalloon{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-20vh);}
-}
-
-.container{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+/* main page */
+.page{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 }
 
 h1{
-font-family:'Pacifico',cursive;
-font-size:32px;
+font-family:'Pacifico';
 color:#6a0dad;
+font-size:32px;
 }
 
+/* buttons */
 button{
 padding:12px 25px;
 font-size:18px;
@@ -84,37 +74,52 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.8);
+background:black;
 display:none;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+z-index:10;
 }
 
 video{
 width:90%;
 max-width:400px;
+border-radius:20px;
+}
+
+/* memories section */
+.memories{
+padding:50px 20px;
+background:white;
+}
+
+.memory{
+margin-bottom:40px;
+}
+
+.memory img{
+width:90%;
+max-width:300px;
 border-radius:15px;
 }
 
-#finalMsg{
-display:none;
-font-size:28px;
+.memory p{
+font-family:'Pacifico';
 color:#6a0dad;
-font-family:'Pacifico',cursive;
+font-size:20px;
 }
 
 /* confetti */
 .confetti{
-position:absolute;
+position:fixed;
 width:10px;
 height:10px;
-background:red;
-animation:confettiFall 3s linear infinite;
+animation:fall 3s linear infinite;
 }
 
-@keyframes confettiFall{
-0%{transform:translateY(0);}
+@keyframes fall{
+0%{transform:translateY(-10vh);}
 100%{transform:translateY(100vh);}
 }
 
@@ -123,19 +128,27 @@ animation:confettiFall 3s linear infinite;
 
 <body>
 
-<div class="container" id="mainPage">
+<!-- background music -->
+<audio id="bgMusic" autoplay loop>
+<source src="aafsha-valentine/romantic.mp3" type="audio/mp3">
+</audio>
+
+
+<!-- FIRST PAGE -->
+<div class="page" id="mainPage">
 
 <h1>
 Aafsha,<br>
 Will you be my forever Valentine? ❤️
 </h1>
 
-<button id="yesBtn" onclick="playVideo()">YES ❤️</button>
+<button id="yesBtn">YES ❤️</button>
 <button id="noBtn">NO 💔</button>
 
 </div>
 
 
+<!-- VIDEO POPUP -->
 <div id="videoPopup">
 
 <video id="memeVideo">
@@ -147,15 +160,46 @@ Will you be my forever Valentine? ❤️
 </div>
 
 
-<div id="finalMsg">
-You just made me the luckiest person alive ❤️✨
+<!-- MEMORIES PAGE -->
+<div class="memories" id="memoriesPage" style="display:none;">
+
+<h1>Our Beautiful Memories ❤️</h1>
+
+<div class="memory">
+<img src="aafsha-valentine/photo1.jpg">
+<p>The day my life changed forever 💫</p>
 </div>
+
+<div class="memory">
+<img src="aafsha-valentine/photo2.jpg">
+<p>Your smile is my favorite place ❤️</p>
+</div>
+
+<div class="memory">
+<img src="aafsha-valentine/photo3.jpg">
+<p>Every moment with you is magic ✨</p>
+</div>
+
+<div class="memory">
+<p style="font-size:28px;">
+Thank you for choosing me forever ❤️
+</p>
+</div>
+
+</div>
+
 
 
 <script>
 
+/* fix autoplay restriction */
+document.body.addEventListener("click",()=>{
+document.getElementById("bgMusic").play();
+},{once:true});
+
+
 /* runaway NO button */
-const noBtn=document.getElementById("noBtn");
+let noBtn=document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover",()=>{
 noBtn.style.top=Math.random()*80+"vh";
@@ -163,12 +207,13 @@ noBtn.style.left=Math.random()*80+"vw";
 });
 
 
-/* play video */
-function playVideo(){
+/* YES clicked */
+document.getElementById("yesBtn").onclick=function(){
 
 document.getElementById("mainPage").style.display="none";
 
 let popup=document.getElementById("videoPopup");
+
 let video=document.getElementById("memeVideo");
 
 popup.style.display="flex";
@@ -179,11 +224,19 @@ video.onended=function(){
 
 popup.style.display="none";
 
-document.getElementById("finalMsg").style.display="block";
+showMemories();
 
 startConfetti();
 
 };
+
+}
+
+
+/* show memories */
+function showMemories(){
+
+document.getElementById("memoriesPage").style.display="block";
 
 }
 
@@ -206,26 +259,6 @@ setTimeout(()=>heart.remove(),6000);
 },300);
 
 
-/* balloons */
-const balloons=["🎈","🎈","🎈","💜","💙","💖"];
-
-setInterval(()=>{
-
-let balloon=document.createElement("div");
-
-balloon.className="balloon";
-
-balloon.innerHTML=balloons[Math.floor(Math.random()*balloons.length)];
-
-balloon.style.left=Math.random()*100+"vw";
-
-document.body.appendChild(balloon);
-
-setTimeout(()=>balloon.remove(),10000);
-
-},1500);
-
-
 /* confetti */
 function startConfetti(){
 
@@ -245,7 +278,7 @@ document.body.appendChild(conf);
 
 setTimeout(()=>conf.remove(),3000);
 
-},100);
+},150);
 
 }
 
