@@ -1,220 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Aafsha ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-padding:0;
-font-family:Poppins;
-background:linear-gradient(135deg,#e6ccff,#f3d9ff);
-overflow:hidden;
+background: linear-gradient(135deg,#e6e6fa,#ffc0cb);
+font-family:'Poppins',sans-serif;
 text-align:center;
+overflow-x:hidden;
 }
 
-/* main page */
+/* Floating hearts */
 
-#mainPage{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+.heart{
+position:fixed;
+bottom:-50px;
+font-size:24px;
+animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* Main container */
+
+.container{
+margin-top:100px;
 }
 
 h1{
-font-family:'Pacifico', cursive;
-color:#6a0dad;
-font-size:32px;
-margin-bottom:30px;
+font-family:'Great Vibes',cursive;
+font-size:42px;
+color:#d63384;
 }
 
-/* buttons */
+/* Buttons */
 
-button{
-padding:14px 28px;
-font-size:18px;
+.btn{
+padding:15px 30px;
+font-size:20px;
 border:none;
 border-radius:30px;
-margin:10px;
+margin:20px;
 cursor:pointer;
 }
 
-#yesBtn{
-background:#ff4da6;
+.yes{
+background:#28a745;
 color:white;
 }
 
-#noBtn{
-background:#999;
+.no{
+background:#dc3545;
 color:white;
 position:absolute;
 }
 
-/* popup */
+/* Video popup */
 
 #videoPopup{
-
 display:none;
 position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.95);
-
-z-index:999;
-
-justify-content:center;
-align-items:center;
-flex-direction:column;
-
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:black;
+padding:10px;
+border-radius:10px;
+z-index:1000;
 }
 
-/* video */
+video{
+width:300px;
+border-radius:10px;
+}
 
-#videoPopup video{
+/* Final message */
 
-width:90%;
+#finalMessage{
+display:none;
+font-size:28px;
+margin-top:30px;
+color:#6f42c1;
+animation:fadeIn 2s;
+}
+
+/* Memories */
+
+#memories{
+display:none;
+padding:40px;
+background:linear-gradient(#ffc0cb,#e6e6fa);
+}
+
+.memory{
+margin-top:40px;
+animation:fadeInUp 2s;
+}
+
+.memory img{
+width:85%;
 max-width:400px;
-border-radius:15px;
-
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* close button */
+.memory p{
+font-size:20px;
+}
 
-#closeBtn{
+/* Confetti */
 
-margin-top:20px;
-padding:10px 20px;
-background:white;
-border-radius:20px;
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+background:red;
+top:0;
+animation:fall 4s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(0);}
+100%{transform:translateY(100vh);}
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes fadeInUp{
+from{
+opacity:0;
+transform:translateY(50px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 </style>
 
 </head>
 
-
 <body>
 
+<!-- Background Music -->
 
-<!-- background music -->
-<audio id="bgMusic" loop>
-<source src="aafsha-valentine/romantic.mp3" type="audio/mp3">
+<audio id="bgMusic" autoplay loop>
+<source src="romantic.mp3" type="audio/mp3">
 </audio>
 
-
-
-<!-- main page -->
-<div id="mainPage">
-
-<h1>
-Aafsha,<br>
-Will you be my Forever Valentine? ❤️
-</h1>
-
-<button id="yesBtn">YES ❤️</button>
-
-<button id="noBtn">NO 💔</button>
-
-</div>
-
-
-
-<!-- popup video -->
-<div id="videoPopup">
-
-<video id="memeVideo" playsinline controls>
-
-<source src="https://asifmshaikh007-cyber.github.io/aafsha-valentine/kbc-7crore.mp4" type="video/mp4">
-
-</video>
-
-<button id="closeBtn">Close</button>
-
-</div>
-
-
+<!-- Floating Hearts -->
 
 <script>
 
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💜";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+document.body.appendChild(heart);
 
-/* START MUSIC after first tap */
+setTimeout(()=>heart.remove(),6000);
 
-document.body.addEventListener("click", function(){
+},500);
 
-let music=document.getElementById("bgMusic");
+</script>
 
-music.play().catch(()=>{});
+<!-- Main Page -->
 
-},{once:true});
+<div class="container">
 
+<h1>Aafsha,<br>Will you be my Forever Valentine? ❤️</h1>
 
+<button class="btn yes" onclick="accept()">YES 💖</button>
 
-/* runaway NO button */
+<button class="btn no" id="noBtn">NO 💔</button>
+
+</div>
+
+<!-- Video Popup -->
+
+<div id="videoPopup">
+
+<video id="memeVideo">
+
+<source src="kbc-7crore.mp4" type="video/mp4">
+
+</video>
+
+</div>
+
+<!-- Final Message -->
+
+<div id="finalMessage">
+
+You didn’t just say YES…<br>
+You made me the luckiest man alive ❤️✨
+
+</div>
+
+<!-- Memories Section -->
+
+<div id="memories">
+
+<h1>Our Beautiful Memories ❤️</h1>
+
+<div class="memory">
+<img src="memory1.jpg">
+<p>The moment I realized how lucky I am 💜</p>
+</div>
+
+<div class="memory">
+<img src="memory2.jpg">
+<p>You make everything magical ✨</p>
+</div>
+
+<div class="memory">
+<img src="memory3.jpg">
+<p>Forever starts with you ❤️</p>
+</div>
+
+</div>
+
+<script>
+
+/* Runaway NO button */
 
 let noBtn=document.getElementById("noBtn");
 
-function moveNo(){
+noBtn.addEventListener("mouseover",()=>{
 
 noBtn.style.top=Math.random()*80+"vh";
 noBtn.style.left=Math.random()*80+"vw";
 
-}
-
-noBtn.addEventListener("touchstart", moveNo);
-noBtn.addEventListener("mouseover", moveNo);
-
-
-
-/* YES button */
-
-document.getElementById("yesBtn").onclick=function(){
-
-let popup=document.getElementById("videoPopup");
-
-let video=document.getElementById("memeVideo");
-
-popup.style.display="flex";
-
-video.currentTime=0;
-
-video.play().catch(()=>{
-
-console.log("Tap play manually");
-
 });
 
-};
+/* YES clicked */
 
+function accept(){
 
+let videoPopup=document.getElementById("videoPopup");
+let video=document.getElementById("memeVideo");
 
-/* close popup */
+videoPopup.style.display="block";
 
-document.getElementById("closeBtn").onclick=function(){
+video.play();
 
-document.getElementById("videoPopup").style.display="none";
+/* Confetti */
 
-document.getElementById("memeVideo").pause();
+for(let i=0;i<50;i++){
 
-};
+let conf=document.createElement("div");
+conf.className="confetti";
 
+conf.style.left=Math.random()*100+"vw";
+conf.style.background=
+["red","blue","yellow","green","pink"]
+[Math.floor(Math.random()*5)];
+
+conf.style.animationDuration=
+(2+Math.random()*3)+"s";
+
+document.body.appendChild(conf);
+
+}
+
+/* After video ends */
+
+video.onended=function(){
+
+videoPopup.style.display="none";
+
+document.getElementById("finalMessage").style.display="block";
+
+document.getElementById("memories").style.display="block";
+
+}
+
+}
 
 </script>
-
-
 
 </body>
 </html>
