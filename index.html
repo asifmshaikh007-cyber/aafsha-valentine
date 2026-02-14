@@ -11,21 +11,23 @@ body{
     margin:0;
     padding:0;
     overflow:hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background: lavender;
+    font-family:'Segoe UI',sans-serif;
+    background:lavender;
     text-align:center;
 }
 
-/* Center container */
+/* Main container */
+
 .container{
     position:absolute;
     top:50%;
     left:50%;
-    transform:translate(-50%, -50%);
+    transform:translate(-50%,-50%);
     z-index:10;
 }
 
 /* Buttons */
+
 button{
     padding:12px 28px;
     font-size:18px;
@@ -46,10 +48,11 @@ button{
     position:absolute;
 }
 
-/* Hearts */
+/* Floating hearts */
+
 .heart{
     position:absolute;
-    font-size:20px;
+    font-size:22px;
     animation:floatUp linear forwards;
 }
 
@@ -65,6 +68,7 @@ button{
 }
 
 /* Balloons */
+
 .balloon{
     position:absolute;
     width:35px;
@@ -74,6 +78,7 @@ button{
 }
 
 /* Confetti */
+
 .confetti{
     position:absolute;
     width:10px;
@@ -92,7 +97,37 @@ button{
     }
 }
 
+/* Amitabh popup */
+
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(0,0,0,0.3);
+    z-index:100;
+    text-align:center;
+    transition:0.4s;
+}
+
+.popup.show{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.popup img{
+    width:250px;
+    border-radius:10px;
+}
+
+.popup h2{
+    color:#6a1b9a;
+}
+
 /* Final message */
+
 .finalMessage{
     font-size:28px;
     color:#4a148c;
@@ -112,43 +147,69 @@ button{
 
 </div>
 
-<!-- Amitabh meme audio -->
+
+<!-- Amitabh popup -->
+
+<div class="popup" id="popup">
+
+<img src="https://i.imgur.com/6X4XK7Q.png">
+
+<h2>7 CRORE!!! 🎉</h2>
+
+</div>
+
+
+<!-- Meme audio -->
+
 <audio id="memeAudio">
-<source src="https://www.myinstants.com/media/sounds/7-crore.mp3" type="audio/mpeg">
+<source src="https://www.myinstants.com/media/sounds/7-crore.mp3">
 </audio>
+
 
 <script>
 
 /* Floating hearts */
-function createHeart(){
-    let heart = document.createElement("div");
-    heart.innerHTML="❤️";
-    heart.className="heart";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(4+Math.random()*3)+"s";
-    document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),7000);
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+
+heart.className="heart";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=(4+Math.random()*3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),7000);
+
 }
 
 setInterval(createHeart,300);
 
 
 /* Balloons */
+
 function createBalloon(){
 
-    let balloon=document.createElement("div");
-    balloon.className="balloon";
+let balloon=document.createElement("div");
 
-    balloon.style.left=Math.random()*100+"vw";
-    balloon.style.background=
-    "hsl("+Math.random()*360+",70%,60%)";
+balloon.className="balloon";
 
-    balloon.style.animationDuration=(6+Math.random()*4)+"s";
+balloon.style.left=Math.random()*100+"vw";
 
-    document.body.appendChild(balloon);
+balloon.style.background=
+"hsl("+Math.random()*360+",70%,60%)";
 
-    setTimeout(()=>balloon.remove(),9000);
+balloon.style.animationDuration=(6+Math.random()*4)+"s";
+
+document.body.appendChild(balloon);
+
+setTimeout(()=>balloon.remove(),9000);
+
 }
 
 setInterval(createBalloon,800);
@@ -160,26 +221,41 @@ let noBtn=document.getElementById("noBtn");
 
 function moveNoButton(){
 
-    let x=Math.random()*80;
-    let y=Math.random()*80;
+let x=Math.random()*80;
 
-    noBtn.style.left=x+"vw";
-    noBtn.style.top=y+"vh";
+let y=Math.random()*80;
+
+noBtn.style.left=x+"vw";
+
+noBtn.style.top=y+"vh";
+
 }
 
 noBtn.addEventListener("mouseover",moveNoButton);
+
 noBtn.addEventListener("touchstart",moveNoButton);
 
 
-/* YES button click */
+/* YES click */
 
 document.getElementById("yesBtn").addEventListener("click",function(){
 
-    document.getElementById("memeAudio").play();
+document.getElementById("memeAudio").play();
 
-    showFinalMessage();
+let popup=document.getElementById("popup");
 
-    launchConfetti();
+popup.classList.add("show");
+
+setTimeout(()=>{
+
+popup.classList.remove("show");
+
+showFinalMessage();
+
+launchConfetti();
+
+},3000);
+
 });
 
 
@@ -187,17 +263,22 @@ document.getElementById("yesBtn").addEventListener("click",function(){
 
 function showFinalMessage(){
 
-    let container=document.getElementById("mainContainer");
+let container=document.getElementById("mainContainer");
 
-    container.innerHTML=`
+container.innerHTML=`
 
-    <div class="finalMessage">
-    🎉 You just made the best decision of your life 😌💜
-    <br><br>
-    Clearly, you have exceptional taste ❤️✨
-    </div>
+<div class="finalMessage">
 
-    `;
+💜 Thank you for accepting!
+
+<br><br>
+
+You officially have the best taste in the universe 😌✨
+
+</div>
+
+`;
+
 }
 
 
@@ -205,21 +286,23 @@ function showFinalMessage(){
 
 function launchConfetti(){
 
-    for(let i=0;i<150;i++){
+for(let i=0;i<150;i++){
 
-        let conf=document.createElement("div");
+let conf=document.createElement("div");
 
-        conf.className="confetti";
+conf.className="confetti";
 
-        conf.style.left=Math.random()*100+"vw";
+conf.style.left=Math.random()*100+"vw";
 
-        conf.style.background=
-        "hsl("+Math.random()*360+",100%,50%)";
+conf.style.background=
+"hsl("+Math.random()*360+",100%,50%)";
 
-        document.body.appendChild(conf);
+document.body.appendChild(conf);
 
-        setTimeout(()=>conf.remove(),4000);
-    }
+setTimeout(()=>conf.remove(),4000);
+
+}
+
 }
 
 </script>
